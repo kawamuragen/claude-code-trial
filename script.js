@@ -44,40 +44,81 @@ class StockAnalyzer {
                     {
                         label: '株価',
                         data: [],
-                        borderColor: '#3498db',
-                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                        borderWidth: 2,
+                        borderColor: '#ffffff',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 3,
                         fill: true,
                         tension: 0.4,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 3,
+                        pointHoverRadius: 6,
                     },
                     {
                         label: '20日移動平均',
                         data: [],
-                        borderColor: '#e74c3c',
+                        borderColor: '#fbbf24',
                         backgroundColor: 'transparent',
-                        borderWidth: 1,
+                        borderWidth: 2,
                         borderDash: [5, 5],
+                        pointBackgroundColor: '#fbbf24',
+                        pointBorderColor: '#fbbf24',
+                        pointRadius: 2,
+                        pointHoverRadius: 4,
                     },
                     {
                         label: '50日移動平均',
                         data: [],
-                        borderColor: '#f39c12',
+                        borderColor: '#f97316',
                         backgroundColor: 'transparent',
-                        borderWidth: 1,
+                        borderWidth: 2,
                         borderDash: [10, 5],
+                        pointBackgroundColor: '#f97316',
+                        pointBorderColor: '#f97316',
+                        pointRadius: 2,
+                        pointHoverRadius: 4,
                     },
                 ],
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
                 plugins: {
                     legend: {
                         position: 'top',
+                        labels: {
+                            color: '#ffffff',
+                            font: {
+                                size: 14,
+                                weight: 'bold',
+                            },
+                            usePointStyle: true,
+                            padding: 20,
+                        },
                     },
                     title: {
                         display: true,
                         text: '株価チャート',
+                        color: '#ffffff',
+                        font: {
+                            size: 18,
+                            weight: 'bold',
+                        },
+                        padding: 20,
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        borderColor: '#ffffff',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true,
                     },
                 },
                 scales: {
@@ -86,12 +127,43 @@ class StockAnalyzer {
                         title: {
                             display: true,
                             text: '価格 ($)',
+                            color: '#ffffff',
+                            font: {
+                                size: 14,
+                                weight: 'bold',
+                            },
+                        },
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                size: 12,
+                            },
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)',
+                            lineWidth: 1,
                         },
                     },
                     x: {
                         title: {
                             display: true,
                             text: '日付',
+                            color: '#ffffff',
+                            font: {
+                                size: 14,
+                                weight: 'bold',
+                            },
+                        },
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                size: 12,
+                            },
+                            maxTicksLimit: 10,
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)',
+                            lineWidth: 1,
                         },
                     },
                 },
