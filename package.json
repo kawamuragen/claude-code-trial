@@ -10,7 +10,7 @@
     "format": "npx prettier --write \"*.{html,css,js,json,md}\"",
     "optimize": "npm run optimize:images && npm run optimize:html && npm run optimize:css",
     "optimize:images": "echo 'No images to optimize'",
-    "optimize:html": "npx html-minifier --input-dir . --output-dir ./dist --file-ext html --remove-comments --collapse-whitespace --minify-css --minify-js",
+    "optimize:html": "mkdir -p dist && cp index.html dist/ && cp script.js dist/",
     "optimize:css": "npx clean-css-cli -o ./dist/styles.css styles.css",
     "deploy": "npm run build && npx gh-pages -d dist",
     "test": "npm run lint",
@@ -29,12 +29,11 @@
   "author": "Claude Code",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
-    "html-minifier": "^4.0.0",
     "clean-css-cli": "^5.6.3",
-    "serve": "^14.2.1",
-    "gh-pages": "^6.1.1"
+    "eslint": "^8.57.0",
+    "gh-pages": "^6.1.1",
+    "prettier": "^3.2.5",
+    "serve": "^14.2.1"
   },
   "repository": {
     "type": "git",
