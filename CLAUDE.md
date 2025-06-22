@@ -41,13 +41,35 @@ The application includes:
 
 ## Development Notes
 
-- Uses TailwindCSS CDN for modern utility-first styling
-- Application interface is in Japanese
+- Uses TailwindCSS CDN for modern utility-first styling with custom configuration
+- Application interface is in Japanese with full accessibility support (ARIA, semantic HTML)
 - Uses allorigins.win as CORS proxy to access Yahoo Finance API
 - Implements client-side caching to minimize API requests
 - Falls back to demo data if real API fails
-- No build process or package management currently configured
+- Modern build process with ESLint, Prettier, and automated CI/CD
 - All files are functional and ready for production
+
+## Development Workflow
+
+### Code Quality
+- **ESLint**: Automated code linting with custom rules
+- **Prettier**: Consistent code formatting
+- **GitHub Actions**: Automated CI/CD pipeline
+- **Pre-commit hooks**: Code quality enforcement
+
+### Build Process
+- **Development**: `npm run dev` - Local development server
+- **Linting**: `npm run lint` - Code quality checks
+- **Formatting**: `npm run format` - Code formatting
+- **Build**: `npm run build` - Production optimization
+- **Deploy**: `npm run deploy` - GitHub Pages deployment
+
+### Accessibility & Performance
+- WCAG 2.1 AA compliance with semantic HTML and ARIA attributes
+- Improved color contrast and focus states
+- Screen reader compatibility
+- Responsive design with mobile-first approach
+- SRI integrity hashes for CDN security
 
 ## Git Configuration
 

@@ -24,18 +24,73 @@
 
 ## 使用技術
 
-- HTML5
-- CSS3
-- JavaScript ES6+
-- Chart.js（CDN経由）
+### フロントエンド
+- HTML5（セマンティックマークアップ、ARIA対応）
+- TailwindCSS（ガラスモーフィズムデザイン）
+- JavaScript ES6+（モジュラークラス設計）
+- Chart.js（データ可視化）
+
+### スタイリング & UI
+- TailwindCSS CDN（ユーティリティファースト）
+- ガラスモーフィズムデザイン
+- レスポンシブレイアウト
+- アクセシビリティ対応（WCAG準拠）
+
+### データ & API
 - Yahoo Finance API（allorigins.winプロキシ経由）
-- Alpha Vantage API（オプション）
+- 5分間キャッシュシステム
+- 複数データソース対応
+
+### 開発・デプロイメント
+- ESLint（コード品質管理）
+- Prettier（コードフォーマット）
+- GitHub Actions（CI/CD）
+- GitHub Pages（自動デプロイ）
 
 ## セットアップ
 
+### 簡単セットアップ（開発なし）
 1. リポジトリをクローンまたはダウンロード
 2. ブラウザで`index.html`を開く
 3. **即座に利用可能！** - Yahoo Finance APIで無料でリアルタイムデータを取得
+
+### 開発環境セットアップ
+1. Node.js（16以上）をインストール
+2. リポジトリをクローン
+   ```bash
+   git clone https://github.com/kawamuragen/claude-code-trial.git
+   cd claude-code-trial
+   ```
+3. 依存関係をインストール
+   ```bash
+   npm install
+   ```
+4. 開発サーバーを起動
+   ```bash
+   npm run dev
+   ```
+
+## 開発コマンド
+
+```bash
+# 開発サーバー起動
+npm run dev
+
+# コードリント
+npm run lint
+
+# コードフォーマット
+npm run format
+
+# 本番ビルド
+npm run build
+
+# テスト実行
+npm test
+
+# GitHub Pagesにデプロイ
+npm run deploy
+```
 
 ## 使用方法
 

@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git init:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(gh pr:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }

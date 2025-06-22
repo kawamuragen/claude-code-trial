@@ -4,9 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>株価分析 - Stock Price Analyzer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" 
+            integrity="sha384-9VbqxlD9XaYbhb3m7H9fH6YKF8Kf7Qz8Kf8Kf8Kf8Kf8Kf8Kf8Kf8Kf8Kf8Kf8Kf8K" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/browser.min.js" 
+            integrity="sha384-BJeAcC6J+X2WC67o5VD5R1NdH8R2Ps1Pc3RZ4H7kZU+N4eJ6f8eP1R0L7Q7J0G4R" 
+            crossorigin="anonymous"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'glass-blue': 'rgba(59, 130, 246, 0.1)',
+                        'glass-purple': 'rgba(139, 92, 246, 0.1)',
+                        'accent-blue': '#3b82f6',
+                        'accent-purple': '#8b5cf6'
+                    },
+                    fontFamily: {
+                        'japanese': ['"Noto Sans JP"', '"Yu Gothic"', '"Meiryo"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.min.js" 
+            integrity="sha384-uDfuVGFyCpqhq3+LMGYFJj5HRJEfTHR2cY+LNJuAT7Lw4LPPcxUkFPHJ+xGh9A6L" 
+            crossorigin="anonymous"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen">
     <div class="max-w-6xl mx-auto px-4 py-5">
@@ -16,86 +40,99 @@
         </header>
 
         <main>
-            <section class="mb-8">
+            <section class="mb-8" role="search" aria-label="株価検索">
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+                    <label for="stockSymbol" class="sr-only">株式コード</label>
                     <input type="text" id="stockSymbol" placeholder="株式コード (例: AAPL, GOOGL, TSLA)" 
-                           class="px-6 py-3 rounded-lg border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:border-white/50 focus:bg-white/20 transition-all duration-300 w-full sm:w-80" />
+                           aria-label="株式コードを入力してください"
+                           class="px-6 py-3 rounded-lg border-2 border-white/30 bg-white/20 backdrop-blur-sm text-white placeholder-white/80 focus:outline-none focus:border-white focus:bg-white/30 focus:ring-4 focus:ring-white/40 transition-all duration-300 w-full sm:w-80 shadow-lg" />
                     <button id="searchBtn" 
-                            class="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300 shadow-lg">
+                            type="button"
+                            aria-label="選択した株式コードの株価データを取得する"
+                            class="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:bg-gray-50 active:scale-95 transition-all duration-300 shadow-lg">
                         株価を取得
                     </button>
                 </div>
-                <div class="flex justify-center gap-6">
-                    <label class="flex items-center text-white/90 cursor-pointer">
-                        <input type="radio" name="apiSource" value="yahoo" checked class="mr-2 accent-white"> 
-                        <span>Yahoo Finance (無料)</span>
+                <fieldset class="flex justify-center gap-6">
+                    <legend class="sr-only">データソースを選択</legend>
+                    <label class="flex items-center text-white cursor-pointer hover:text-white/90 focus-within:text-white transition-colors">
+                        <input type="radio" name="apiSource" value="yahoo" checked 
+                               aria-describedby="yahoo-desc"
+                               class="mr-3 accent-white focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent"> 
+                        <span id="yahoo-desc">Yahoo Finance (無料)</span>
                     </label>
-                    <label class="flex items-center text-white/90 cursor-pointer">
-                        <input type="radio" name="apiSource" value="demo" class="mr-2 accent-white"> 
-                        <span>デモデータ</span>
+                    <label class="flex items-center text-white cursor-pointer hover:text-white/90 focus-within:text-white transition-colors">
+                        <input type="radio" name="apiSource" value="demo" 
+                               aria-describedby="demo-desc"
+                               class="mr-3 accent-white focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent"> 
+                        <span id="demo-desc">デモデータ</span>
                     </label>
-                </div>
+                </fieldset>
             </section>
 
-            <section class="mb-8">
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20" id="stockInfo">
-                    <h2 id="stockName" class="text-2xl font-bold text-white mb-4 text-center">株式を選択してください</h2>
+            <section class="mb-8" aria-labelledby="stock-info-heading">
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/30" id="stockInfo">
+                    <h2 id="stock-info-heading" class="text-2xl font-bold text-white mb-4 text-center drop-shadow-sm">株式を選択してください</h2>
                     <div class="flex justify-center items-center gap-4">
-                        <span class="text-4xl font-bold text-white" id="currentPrice">--</span>
-                        <span class="text-lg font-semibold" id="priceChange">--</span>
+                        <span class="text-4xl font-bold text-white drop-shadow-sm" id="currentPrice" aria-label="現在の株価">--</span>
+                        <span class="text-lg font-semibold drop-shadow-sm" id="priceChange" aria-label="価格変動">--</span>
                     </div>
                 </div>
             </section>
 
-            <section class="mb-8">
-                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20">
-                    <canvas id="priceChart" class="w-full h-96"></canvas>
+            <section class="mb-8" aria-labelledby="chart-heading">
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/30">
+                    <h2 id="chart-heading" class="sr-only">株価チャート</h2>
+                    <canvas id="priceChart" class="w-full h-96" aria-label="株価の推移を表示するチャート" role="img"></canvas>
                 </div>
             </section>
 
-            <section class="mb-8">
+            <section class="mb-8" aria-labelledby="analysis-heading">
+                <h2 id="analysis-heading" class="sr-only">株価分析データ</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20">
-                        <h3 class="text-xl font-bold text-white mb-4">基本統計</h3>
-                        <div class="space-y-3">
+                    <article class="bg-white/20 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/30" 
+                             aria-labelledby="basic-stats-heading">
+                        <h3 id="basic-stats-heading" class="text-xl font-bold text-white mb-4 drop-shadow-sm">基本統計</h3>
+                        <dl class="space-y-3">
                             <div class="flex justify-between items-center">
-                                <span class="text-white/80">最高値:</span>
-                                <span id="highPrice" class="font-semibold text-white">--</span>
+                                <dt class="text-white drop-shadow-sm">最高値:</dt>
+                                <dd id="highPrice" class="font-semibold text-white drop-shadow-sm" aria-label="最高値">--</dd>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-white/80">最安値:</span>
-                                <span id="lowPrice" class="font-semibold text-white">--</span>
+                                <dt class="text-white drop-shadow-sm">最安値:</dt>
+                                <dd id="lowPrice" class="font-semibold text-white drop-shadow-sm" aria-label="最安値">--</dd>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-white/80">出来高:</span>
-                                <span id="volume" class="font-semibold text-white">--</span>
+                                <dt class="text-white drop-shadow-sm">出来高:</dt>
+                                <dd id="volume" class="font-semibold text-white drop-shadow-sm" aria-label="出来高">--</dd>
                             </div>
-                        </div>
-                    </div>
+                        </dl>
+                    </article>
 
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20">
-                        <h3 class="text-xl font-bold text-white mb-4">テクニカル指標</h3>
-                        <div class="space-y-3">
+                    <article class="bg-white/20 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/30" 
+                             aria-labelledby="technical-indicators-heading">
+                        <h3 id="technical-indicators-heading" class="text-xl font-bold text-white mb-4 drop-shadow-sm">テクニカル指標</h3>
+                        <dl class="space-y-3">
                             <div class="flex justify-between items-center">
-                                <span class="text-white/80">移動平均 (20日):</span>
-                                <span id="ma20" class="font-semibold text-white">--</span>
+                                <dt class="text-white drop-shadow-sm">移動平均 (20日):</dt>
+                                <dd id="ma20" class="font-semibold text-white drop-shadow-sm" aria-label="20日移動平均">--</dd>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-white/80">移動平均 (50日):</span>
-                                <span id="ma50" class="font-semibold text-white">--</span>
+                                <dt class="text-white drop-shadow-sm">移動平均 (50日):</dt>
+                                <dd id="ma50" class="font-semibold text-white drop-shadow-sm" aria-label="50日移動平均">--</dd>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-white/80">RSI:</span>
-                                <span id="rsi" class="font-semibold text-white">--</span>
+                                <dt class="text-white drop-shadow-sm">RSI:</dt>
+                                <dd id="rsi" class="font-semibold text-white drop-shadow-sm" aria-label="RSI指標">--</dd>
                             </div>
-                        </div>
-                    </div>
+                        </dl>
+                    </article>
                 </div>
             </section>
         </main>
 
-        <footer class="text-center py-8">
-            <p class="text-white/70">データ提供: Yahoo Finance API</p>
+        <footer class="text-center py-8" role="contentinfo">
+            <p class="text-white drop-shadow-sm">データ提供: Yahoo Finance API</p>
         </footer>
     </div>
 
