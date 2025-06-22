@@ -4,87 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>株価分析 - Stock Price Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>株価分析アプリ</h1>
-            <p>リアルタイム株価データの分析と可視化</p>
+<body class="bg-gradient-to-br from-blue-500 to-purple-600 min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 py-5">
+        <header class="text-center text-white mb-10 py-10">
+            <h1 class="text-5xl font-bold mb-4 drop-shadow-lg">株価分析アプリ</h1>
+            <p class="text-xl opacity-90">リアルタイム株価データの分析と可視化</p>
         </header>
 
         <main>
-            <section class="search-section">
-                <div class="search-container">
-                    <input type="text" id="stockSymbol" placeholder="株式コード (例: AAPL, GOOGL, TSLA)" />
-                    <button id="searchBtn">株価を取得</button>
+            <section class="mb-8">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+                    <input type="text" id="stockSymbol" placeholder="株式コード (例: AAPL, GOOGL, TSLA)" 
+                           class="px-6 py-3 rounded-lg border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:outline-none focus:border-white/50 focus:bg-white/20 transition-all duration-300 w-full sm:w-80" />
+                    <button id="searchBtn" 
+                            class="px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white/30 transition-all duration-300 shadow-lg">
+                        株価を取得
+                    </button>
                 </div>
-                <div class="api-selector">
-                    <label>
-                        <input type="radio" name="apiSource" value="yahoo" checked> Yahoo Finance (無料)
+                <div class="flex justify-center gap-6">
+                    <label class="flex items-center text-white/90 cursor-pointer">
+                        <input type="radio" name="apiSource" value="yahoo" checked class="mr-2 accent-white"> 
+                        <span>Yahoo Finance (無料)</span>
                     </label>
-                    <label>
-                        <input type="radio" name="apiSource" value="demo"> デモデータ
+                    <label class="flex items-center text-white/90 cursor-pointer">
+                        <input type="radio" name="apiSource" value="demo" class="mr-2 accent-white"> 
+                        <span>デモデータ</span>
                     </label>
                 </div>
             </section>
 
-            <section class="info-section">
-                <div class="stock-info" id="stockInfo">
-                    <h2 id="stockName">株式を選択してください</h2>
-                    <div class="price-display">
-                        <span class="current-price" id="currentPrice">--</span>
-                        <span class="price-change" id="priceChange">--</span>
+            <section class="mb-8">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20" id="stockInfo">
+                    <h2 id="stockName" class="text-2xl font-bold text-white mb-4 text-center">株式を選択してください</h2>
+                    <div class="flex justify-center items-center gap-4">
+                        <span class="text-4xl font-bold text-white" id="currentPrice">--</span>
+                        <span class="text-lg font-semibold" id="priceChange">--</span>
                     </div>
                 </div>
             </section>
 
-            <section class="chart-section">
-                <div class="chart-container">
-                    <canvas id="priceChart"></canvas>
+            <section class="mb-8">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20">
+                    <canvas id="priceChart" class="w-full h-96"></canvas>
                 </div>
             </section>
 
-            <section class="analysis-section">
-                <div class="analysis-grid">
-                    <div class="analysis-card">
-                        <h3>基本統計</h3>
-                        <div class="stat-item">
-                            <span>最高値:</span>
-                            <span id="highPrice">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>最安値:</span>
-                            <span id="lowPrice">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>出来高:</span>
-                            <span id="volume">--</span>
+            <section class="mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20">
+                        <h3 class="text-xl font-bold text-white mb-4">基本統計</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/80">最高値:</span>
+                                <span id="highPrice" class="font-semibold text-white">--</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/80">最安値:</span>
+                                <span id="lowPrice" class="font-semibold text-white">--</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/80">出来高:</span>
+                                <span id="volume" class="font-semibold text-white">--</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="analysis-card">
-                        <h3>テクニカル指標</h3>
-                        <div class="stat-item">
-                            <span>移動平均 (20日):</span>
-                            <span id="ma20">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>移動平均 (50日):</span>
-                            <span id="ma50">--</span>
-                        </div>
-                        <div class="stat-item">
-                            <span>RSI:</span>
-                            <span id="rsi">--</span>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-white/20">
+                        <h3 class="text-xl font-bold text-white mb-4">テクニカル指標</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/80">移動平均 (20日):</span>
+                                <span id="ma20" class="font-semibold text-white">--</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/80">移動平均 (50日):</span>
+                                <span id="ma50" class="font-semibold text-white">--</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-white/80">RSI:</span>
+                                <span id="rsi" class="font-semibold text-white">--</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer>
-            <p>データ提供: Alpha Vantage API</p>
+        <footer class="text-center py-8">
+            <p class="text-white/70">データ提供: Yahoo Finance API</p>
         </footer>
     </div>
 
