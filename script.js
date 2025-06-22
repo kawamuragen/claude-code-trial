@@ -326,28 +326,46 @@ class StockAnalyzer {
     }
 
     updateUI(symbol, quote, dailyData) {
-        document.getElementById('stockName').textContent = `${symbol} - 株価情報`;
+        const stockNameElement = document.getElementById('stock-info-heading');
+        if (stockNameElement) {
+            stockNameElement.textContent = `${symbol} - 株価情報`;
+        }
 
         const currentPrice = quote['05. price'] || '--';
         const change = quote['09. change'] || '0';
         const changePercent = quote['10. change percent'] || '0%';
 
-        document.getElementById('currentPrice').textContent = `$${currentPrice}`;
+        const currentPriceElement = document.getElementById('currentPrice');
+        if (currentPriceElement) {
+            currentPriceElement.textContent = `$${currentPrice}`;
+        }
 
         const priceChangeElement = document.getElementById('priceChange');
-        const changeValue = parseFloat(change);
-        priceChangeElement.textContent = `${changeValue >= 0 ? '+' : ''}${change} (${changePercent})`;
-        priceChangeElement.className = `price-change ${changeValue >= 0 ? 'positive' : 'negative'}`;
+        if (priceChangeElement) {
+            const changeValue = parseFloat(change);
+            priceChangeElement.textContent = `${changeValue >= 0 ? '+' : ''}${change} (${changePercent})`;
+            priceChangeElement.className = `price-change ${changeValue >= 0 ? 'positive' : 'negative'}`;
+        }
 
         const prices = Object.values(dailyData).map(day => parseFloat(day['4. close']));
         const volumes = Object.values(dailyData).map(day => parseInt(day['5. volume']));
         const highs = Object.values(dailyData).map(day => parseFloat(day['2. high']));
         const lows = Object.values(dailyData).map(day => parseFloat(day['3. low']));
 
-        document.getElementById('highPrice').textContent = `$${Math.max(...highs).toFixed(2)}`;
-        document.getElementById('lowPrice').textContent = `$${Math.min(...lows).toFixed(2)}`;
-        document.getElementById('volume').textContent =
-            volumes[volumes.length - 1]?.toLocaleString() || '--';
+        const highPriceElement = document.getElementById('highPrice');
+        if (highPriceElement) {
+            highPriceElement.textContent = `$${Math.max(...highs).toFixed(2)}`;
+        }
+
+        const lowPriceElement = document.getElementById('lowPrice');
+        if (lowPriceElement) {
+            lowPriceElement.textContent = `$${Math.min(...lows).toFixed(2)}`;
+        }
+
+        const volumeElement = document.getElementById('volume');
+        if (volumeElement) {
+            volumeElement.textContent = volumes[volumes.length - 1]?.toLocaleString() || '--';
+        }
     }
 
     updateChart(dailyData) {
@@ -400,13 +418,20 @@ class StockAnalyzer {
         const latestMA50 = ma50[ma50.length - 1];
         const latestRSI = rsi[rsi.length - 1];
 
-        document.getElementById('ma20').textContent = latestMA20
-            ? `$${latestMA20.toFixed(2)}`
-            : '--';
-        document.getElementById('ma50').textContent = latestMA50
-            ? `$${latestMA50.toFixed(2)}`
-            : '--';
-        document.getElementById('rsi').textContent = latestRSI ? latestRSI.toFixed(2) : '--';
+        const ma20Element = document.getElementById('ma20');
+        if (ma20Element) {
+            ma20Element.textContent = latestMA20 ? `$${latestMA20.toFixed(2)}` : '--';
+        }
+
+        const ma50Element = document.getElementById('ma50');
+        if (ma50Element) {
+            ma50Element.textContent = latestMA50 ? `$${latestMA50.toFixed(2)}` : '--';
+        }
+
+        const rsiElement = document.getElementById('rsi');
+        if (rsiElement) {
+            rsiElement.textContent = latestRSI ? latestRSI.toFixed(2) : '--';
+        }
     }
 
     calculateRSI(prices, period = 14) {

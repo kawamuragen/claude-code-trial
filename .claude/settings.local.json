@@ -4,7 +4,9 @@
       "Bash(git init:*)",
       "Bash(git checkout:*)",
       "Bash(gh pr:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm run build:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
