@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株価分析 - Stock Price Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>株価分析アプリ</h1>
+            <p>リアルタイム株価データの分析と可視化</p>
+        </header>
+
+        <main>
+            <section class="search-section">
+                <div class="search-container">
+                    <input type="text" id="stockSymbol" placeholder="株式コード (例: AAPL, GOOGL, TSLA)" />
+                    <button id="searchBtn">株価を取得</button>
+                </div>
+                <div class="api-selector">
+                    <label>
+                        <input type="radio" name="apiSource" value="yahoo" checked> Yahoo Finance (無料)
+                    </label>
+                    <label>
+                        <input type="radio" name="apiSource" value="demo"> デモデータ
+                    </label>
+                </div>
+            </section>
+
+            <section class="info-section">
+                <div class="stock-info" id="stockInfo">
+                    <h2 id="stockName">株式を選択してください</h2>
+                    <div class="price-display">
+                        <span class="current-price" id="currentPrice">--</span>
+                        <span class="price-change" id="priceChange">--</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="chart-section">
+                <div class="chart-container">
+                    <canvas id="priceChart"></canvas>
+                </div>
+            </section>
+
+            <section class="analysis-section">
+                <div class="analysis-grid">
+                    <div class="analysis-card">
+                        <h3>基本統計</h3>
+                        <div class="stat-item">
+                            <span>最高値:</span>
+                            <span id="highPrice">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>最安値:</span>
+                            <span id="lowPrice">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>出来高:</span>
+                            <span id="volume">--</span>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card">
+                        <h3>テクニカル指標</h3>
+                        <div class="stat-item">
+                            <span>移動平均 (20日):</span>
+                            <span id="ma20">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>移動平均 (50日):</span>
+                            <span id="ma50">--</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>RSI:</span>
+                            <span id="rsi">--</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>データ提供: Alpha Vantage API</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

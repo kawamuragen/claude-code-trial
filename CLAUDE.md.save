@@ -1,0 +1,39 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+This is a Japanese stock price analysis web application (株価分析アプリ) that provides real-time stock data visualization and technical analysis. The application is currently a single HTML file that references external CSS and JavaScript files.
+
+## Project Structure
+
+- `index.html` - Main application HTML file with Japanese interface
+- `styles.css` - CSS styling (referenced but not present)  
+- `script.js` - JavaScript application logic (referenced but not present)
+
+## Key Features
+
+The application includes:
+- Stock symbol search functionality
+- Real-time price display with change indicators
+- Interactive price chart using Chart.js
+- Basic statistics display (high, low, volume)
+- Technical indicators (20-day MA, 50-day MA, RSI)
+- Multiple data sources:
+  - Yahoo Finance API (free, real-time data via CORS proxy)
+  - Alpha Vantage API (requires API key)
+  - Demo data for testing
+- 5-minute caching system to reduce API requests
+- API source selection (Yahoo Finance / Demo data)
+
+## Development Notes
+
+- The HTML references Chart.js CDN for charting functionality
+- Application interface is in Japanese
+- Uses allorigins.win as CORS proxy to access Yahoo Finance API
+- Implements client-side caching to minimize API requests
+- Falls back to demo data if real API fails
+- No build process or package management currently configured
+- All files are now present and functional
+
