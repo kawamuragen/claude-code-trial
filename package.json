@@ -1,46 +1,46 @@
 {
-  "name": "japanese-stock-analyzer",
-  "version": "1.0.0",
-  "description": "日本株価分析ウェブアプリケーション - リアルタイム株価データの分析と可視化",
-  "main": "index.html",
-  "scripts": {
-    "dev": "npx serve .",
-    "build": "npm run lint && npm run format && npm run optimize",
-    "lint": "npx eslint script.js --fix",
-    "format": "npx prettier --write \"*.{html,css,js,json,md}\"",
-    "optimize": "npm run optimize:images && npm run optimize:html && npm run optimize:css",
-    "optimize:images": "echo 'No images to optimize'",
-    "optimize:html": "mkdir -p dist && cp index.html dist/ && cp script.js dist/",
-    "optimize:css": "npx clean-css-cli -o ./dist/styles.css styles.css",
-    "deploy": "npm run build && npx gh-pages -d dist",
-    "test": "npm run lint",
-    "serve": "npx serve .",
-    "check": "npm run lint && npm run format -- --check"
-  },
-  "keywords": [
-    "株価分析",
-    "stock-analysis",
-    "finance",
-    "japanese-stocks",
-    "realtime-data",
-    "tailwindcss",
-    "chart.js"
-  ],
-  "author": "Claude Code",
-  "license": "MIT",
-  "devDependencies": {
-    "clean-css-cli": "^5.6.3",
-    "eslint": "^8.57.0",
-    "gh-pages": "^6.1.1",
-    "prettier": "^3.2.5",
-    "serve": "^14.2.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kawamuragen/claude-code-trial.git"
-  },
-  "homepage": "https://kawamuragen.github.io/claude-code-trial/",
-  "engines": {
-    "node": ">=16.0.0"
-  }
+    "name": "japanese-stock-analyzer",
+    "version": "1.0.0",
+    "description": "日本株価分析ウェブアプリケーション - リアルタイム株価データの分析と可視化",
+    "main": "index.html",
+    "scripts": {
+        "dev": "npx serve .",
+        "build": "npm run lint && npm run format && npm run optimize",
+        "lint": "npx eslint script.js --fix",
+        "format": "npx prettier --write \"*.{html,css,js,json,md}\"",
+        "optimize": "npm run optimize:images && npm run optimize:html && npm run optimize:css",
+        "optimize:images": "echo 'No images to optimize'",
+        "optimize:html": "mkdir -p dist && cp index.html dist/ && cp script.js dist/",
+        "optimize:css": "npx clean-css-cli -o ./dist/styles.css styles.css",
+        "deploy": "npm run build && npx gh-pages -d dist",
+        "test": "npm run lint",
+        "serve": "npx serve .",
+        "check": "npm run lint && npm run format -- --check"
+    },
+    "keywords": [
+        "株価分析",
+        "stock-analysis",
+        "finance",
+        "japanese-stocks",
+        "realtime-data",
+        "tailwindcss",
+        "chart.js"
+    ],
+    "author": "Claude Code",
+    "license": "MIT",
+    "devDependencies": {
+        "clean-css-cli": "^5.6.3",
+        "eslint": "^8.57.0",
+        "gh-pages": "^6.1.1",
+        "prettier": "^3.2.5",
+        "serve": "^14.2.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kawamuragen/claude-code-trial.git"
+    },
+    "homepage": "https://kawamuragen.github.io/claude-code-trial/",
+    "engines": {
+        "node": ">=16.0.0"
+    }
 }

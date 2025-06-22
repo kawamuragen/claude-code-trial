@@ -17,14 +17,15 @@ This is a Japanese stock price analysis web application (株価分析アプリ) 
 ## Key Features
 
 The application includes:
+
 - Stock symbol search functionality
 - Real-time price display with change indicators
 - Interactive price chart using Chart.js
 - Basic statistics display (high, low, volume)
 - Technical indicators (20-day MA, 50-day MA, RSI)
 - Multiple data sources:
-  - Yahoo Finance API (free, real-time data via CORS proxy)
-  - Demo data for testing
+    - Yahoo Finance API (free, real-time data via CORS proxy)
+    - Demo data for testing
 - 5-minute caching system to reduce API requests
 - API source selection (Yahoo Finance / Demo data)
 - Modern glassmorphism UI design with TailwindCSS
@@ -52,12 +53,14 @@ The application includes:
 ## Development Workflow
 
 ### Code Quality
+
 - **ESLint**: Automated code linting with custom rules
 - **Prettier**: Consistent code formatting
 - **GitHub Actions**: Automated CI/CD pipeline
 - **Pre-commit hooks**: Code quality enforcement
 
 ### Build Process
+
 - **Development**: `npm run dev` - Local development server
 - **Linting**: `npm run lint` - Code quality checks
 - **Formatting**: `npm run format` - Code formatting
@@ -65,6 +68,7 @@ The application includes:
 - **Deploy**: `npm run deploy` - GitHub Pages deployment
 
 ### Accessibility & Performance
+
 - WCAG 2.1 AA compliance with semantic HTML and ARIA attributes
 - Improved color contrast and focus states
 - Screen reader compatibility
